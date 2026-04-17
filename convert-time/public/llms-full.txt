@@ -1,0 +1,48 @@
+# DATPAQ Convert Time API Sample (Detailed)
+
+## Purpose
+This app demonstrates how to call the DATPAQ Convert Time API from a frontend SPA while showing robust request/response UX states.
+
+## API endpoint
+- Base URL: `https://datpaq.com/api`
+- Route: `GET /v1/convert-time`
+- Full reference: `https://datpaq.com/api/v1/convert-time`
+
+## Authentication
+The backend requires an API key in the request header:
+- Header: `x-api-key: <your_api_key>`
+
+## Request parameters
+- `sourceTime` (required): ISO 8601 string, epoch seconds, or epoch milliseconds.
+- Source input (choose one):
+  - `sourceZone` (IANA timezone)
+  - `sourceLocation` (human location)
+- Target input (choose one):
+  - `targetZone` (IANA timezone)
+  - `targetLocation` (human location)
+
+## Expected successful response shape
+- `success`: boolean
+- `data`:
+  - `sourceTime`
+  - `targetTime`
+  - `sourceTimezone` details
+  - `targetTimezone` details
+- `meta`:
+  - `processingTimeMs`
+  - `timestamp`
+  - `correlationId`
+
+## Expected error response shape
+- `success`: false (or absent depending on service behavior)
+- `error` or `message`
+- `meta` (optional)
+
+## UX behavior in this sample
+- Validates required fields before requesting.
+- Uses GET query parameters for all conversions.
+- Shows loading, error, and success blocks.
+- Displays copyable request URL and response JSON.
+
+## Machine-readable schema
+- OpenAPI document is provided at: `/openapi.json`

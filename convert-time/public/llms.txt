@@ -1,0 +1,29 @@
+# DATPAQ Convert Time API Sample
+
+This repository contains a production-ready single-page application demonstrating the DATPAQ Convert Time API.
+
+## Primary resources
+- Human docs: https://datpaq.com/api/v1/convert-time
+- API base URL: https://datpaq.com/api
+- API route used by this sample: /v1/convert-time
+- OpenAPI schema (machine-readable): /openapi.json
+- Expanded LLM guidance: /llms-full.txt
+
+## What this app demonstrates
+- Time conversion using source/target IANA timezones.
+- Time conversion using source/target location strings.
+- Request validation for required values (API key and sourceTime).
+- Loading, error, and success response handling.
+- Copyable request URL and JSON response output.
+
+## Auth expectations
+- Requires an API key in the `x-api-key` request header.
+
+## Query contract (GET /v1/convert-time)
+- Required: `sourceTime`
+- Source selector: one of `sourceZone` or `sourceLocation`
+- Target selector: one of `targetZone` or `targetLocation`
+
+## Output contract
+- Successful responses include `success`, `data`, and `meta`.
+- Common data fields include `data.sourceTime`, `data.targetTime`, timezone details, and request metadata.

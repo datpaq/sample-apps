@@ -1,0 +1,227 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "DATPAQ Convert Time API",
+    "version": "1.0.0",
+    "description": "Time conversion between source and target timezones or locations."
+  },
+  "servers": [
+    {
+      "url": "https://datpaq.com/api"
+    }
+  ],
+  "paths": {
+    "/v1/convert-time": {
+      "get": {
+        "operationId": "convertTime",
+        "summary": "Convert time between timezones or locations",
+        "description": "Converts sourceTime from a source timezone/location into a target timezone/location.",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "sourceTime",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ISO 8601 string, epoch seconds, or epoch milliseconds."
+          },
+          {
+            "name": "sourceZone",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Source IANA timezone (e.g. America/New_York)."
+          },
+          {
+            "name": "sourceLocation",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Source location string (e.g. New York, NY)."
+          },
+          {
+            "name": "targetZone",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Target IANA timezone (e.g. Asia/Tokyo)."
+          },
+          {
+            "name": "targetLocation",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Target location string (e.g. Tokyo, Japan)."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful conversion",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConvertTimeSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Location not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key"
+      }
+    },
+    "schemas": {
+      "Coordinates": {
+        "type": "object",
+        "properties": {
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": true
+      },
+      "TimezoneInfo": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "abbreviation": {
+            "type": "string"
+          },
+          "offset": {
+            "type": "string"
+          },
+          "isDst": {
+            "type": "boolean"
+          },
+          "location": {
+            "type": "string"
+          },
+          "coordinates": {
+            "$ref": "#/components/schemas/Coordinates"
+          }
+        },
+        "additionalProperties": true
+      },
+      "ConvertTimeSuccess": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "sourceTime": {
+                "type": "string"
+              },
+              "targetTime": {
+                "type": "string"
+              },
+              "sourceTimezone": {
+                "$ref": "#/components/schemas/TimezoneInfo"
+              },
+              "targetTimezone": {
+                "$ref": "#/components/schemas/TimezoneInfo"
+              }
+            },
+            "additionalProperties": true
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "processingTimeMs": {
+                "type": "integer"
+              },
+              "timestamp": {
+                "type": "string"
+              },
+              "correlationId": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "success"
+        ],
+        "additionalProperties": true
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "meta": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}
