@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>DATPAQ Current Time API Sample</title>
+        <meta
+            name="description"
+            content="Interactive DATPAQ Current Time API sample. Query live time by timezone/location and inspect full JSON responses."
+        />
+        <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+        <meta name="theme-color" content="#0f172a" />
+        <meta name="keywords" content="DATPAQ, current time API, timezone API, IANA timezone, time lookup" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="DATPAQ" />
+        <meta property="og:title" content="DATPAQ Current Time API Sample" />
+        <meta
+            property="og:description"
+            content="Lookup current time for IANA timezones or location targets using DATPAQ Current Time API."
+        />
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="DATPAQ Current Time API Sample" />
+        <meta
+            name="twitter:description"
+            content="Interactive sample app for DATPAQ Current Time API requests and responses."
+        />
+
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs guidance" />
+        <link rel="alternate" type="application/json" href="/openai.json" title="OpenAI app guidance" />
+
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "WebApplication",
+                "name": "DATPAQ Current Time API Sample",
+                "description": "Interactive sample app for current time lookups using timezone or location targets.",
+                "applicationCategory": "DeveloperApplication",
+                "operatingSystem": "Web Browser",
+                "isAccessibleForFree": true,
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "DATPAQ",
+                    "url": "https://www.datpaq.com"
+                },
+                "featureList": [
+                    "Current time lookup for IANA timezone",
+                    "Current time lookup for comma-separated location targets",
+                    "Copyable request URL",
+                    "Copyable JSON response",
+                    "Timezone and DST metadata"
+                ]
+            }
+        </script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="module" src="/src/main.jsx"></script>
+    </body>
+</html>

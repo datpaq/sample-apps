@@ -1,0 +1,33 @@
+# DATPAQ IP Geolocation API Sample
+
+This repository contains a production-ready single-page application demonstrating the DATPAQ IP Geolocation API.
+
+## Primary resources
+- Human docs: https://datpaq.com/api/v1/ip-geolocation
+- API base URL: https://datpaq.com/api
+- API route used by this sample: /v1/ip-geolocation
+- OpenAI metadata (machine-readable): /openai.json
+
+## What this app demonstrates
+- Single-IP geolocation lookup via JSON body payload.
+- Required request validation for API key and IP address.
+- Loading, error, empty, and success state rendering.
+- Copyable request URL and JSON response output.
+
+## Auth expectations
+- Requires an API key in the `x-api-key` request header.
+
+## Request contract (POST /v1/ip-geolocation)
+- Required: `ip`
+
+## Output contract
+- Typical successful response includes:
+  - `ip`
+  - `location.country`
+  - `location.region`
+  - `location.city`
+  - `location.latitude`
+  - `location.longitude`
+  - `network.network`
+  - `network.asn`
+  - `network.org`

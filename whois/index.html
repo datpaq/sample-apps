@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="Interactive DATPAQ WHOIS sample app for domain ownership lookup, registrar metadata, TLD enrichment, and raw WHOIS responses."
+        />
+        <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+        <meta name="theme-color" content="#f8fafc" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="DATPAQ" />
+        <meta property="og:title" content="DATPAQ WHOIS Domain Lookup Sample" />
+        <meta
+            property="og:description"
+            content="Query WHOIS registration data, registrar details, dates, name servers, and raw domain records with the DATPAQ API."
+        />
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="DATPAQ WHOIS Domain Lookup Sample" />
+        <meta
+            name="twitter:description"
+            content="Interactive sample app for DATPAQ WHOIS lookups with copyable request URLs and JSON responses."
+        />
+
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs guidance" />
+        <link rel="alternate" type="application/json" href="/openai.json" title="OpenAI machine-readable docs" />
+        <link rel="alternate" type="application/json" href="/openapi.json" title="OpenAPI schema" />
+
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "WebApplication",
+                "name": "DATPAQ WHOIS Domain Lookup Sample",
+                "description": "Interactive sample app for querying WHOIS domain registration records with the DATPAQ API.",
+                "applicationCategory": "DeveloperApplication",
+                "operatingSystem": "Web Browser",
+                "isAccessibleForFree": true,
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "DATPAQ",
+                    "url": "https://www.datpaq.com"
+                },
+                "featureList": [
+                    "Single domain WHOIS lookup",
+                    "Batch WHOIS lookup via comma-separated domains",
+                    "Copyable request URL",
+                    "Copyable JSON response",
+                    "Theme-aware sample shell"
+                ]
+            }
+        </script>
+
+        <title>DATPAQ WHOIS Domain Lookup Sample</title>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="module" src="/src/main.jsx"></script>
+    </body>
+</html>

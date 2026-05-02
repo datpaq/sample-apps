@@ -1,0 +1,27 @@
+# DATPAQ Sample Data API Sample
+
+This repository contains a production-ready SPA that demonstrates how to call the DATPAQ Sample Data API and render robust request/response states.
+
+## Primary resources
+- Human docs: https://www.datpaq.com/docs/sample-data
+- API base URL: https://datpaq.com/api
+- API route used by this sample: /v1/sample-data
+- OpenAI machine-readable docs: /openai.json
+- Expanded LLM guidance: /llms-full.txt
+
+## What this app demonstrates
+- Required API key input with `x-api-key` header auth.
+- Query-based sample data generation by `type`, `count`, `fields`, and `format`.
+- JSON and CSV response handling.
+- Loading, error, empty, and success rendering states.
+- Copyable request URL and copyable JSON response block.
+
+## Query contract (GET /v1/sample-data)
+- Required: `type`
+- Optional: `count` (1-10000)
+- Optional: `fields` (comma-separated)
+- Optional: `format` (`json` or `csv`)
+
+## Output contract
+- Usually includes `success`, `data`, `metadata`, and `correlationId` for JSON responses.
+- CSV responses may return raw CSV text and/or `csvData`.

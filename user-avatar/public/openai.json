@@ -1,0 +1,250 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "DATPAQ User Avatar API",
+    "version": "1.0.0",
+    "description": "Generate customizable user avatar images from names, icons, or external images."
+  },
+  "servers": [
+    {
+      "url": "https://datpaq.com/api"
+    }
+  ],
+  "paths": {
+    "/v1/user-avatar": {
+      "get": {
+        "operationId": "getUserAvatar",
+        "summary": "Generate a user avatar image",
+        "description": "Returns avatar image content in PNG, WebP, or SVG format based on query options and defaults.",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "User name used for initials generation."
+          },
+          {
+            "name": "icon",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Icon hint or custom icon selector."
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 50,
+              "maximum": 2000
+            },
+            "description": "Avatar width and height in pixels."
+          },
+          {
+            "name": "bgColor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Background color for initials-style avatars."
+          },
+          {
+            "name": "textColor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Text color for initials-style avatars."
+          },
+          {
+            "name": "borderColor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Border color for avatar output."
+          },
+          {
+            "name": "borderWidth",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 64
+            },
+            "description": "Border width in pixels."
+          },
+          {
+            "name": "font",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Font family for initials rendering."
+          },
+          {
+            "name": "shape",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "circle",
+                "square"
+              ]
+            },
+            "description": "Avatar shape."
+          },
+          {
+            "name": "pattern",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "none",
+                "dots",
+                "stripes",
+                "waves",
+                "noise"
+              ]
+            },
+            "description": "Background pattern style."
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "png",
+                "webp",
+                "svg"
+              ]
+            },
+            "description": "Output image format."
+          },
+          {
+            "name": "imageUrl",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            },
+            "description": "External image source URL."
+          },
+          {
+            "name": "uploadedIcon",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Previously uploaded icon path."
+          },
+          {
+            "name": "Content-Type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional explicit content-type selector (query key is literal Content-Type)."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Avatar image generated successfully.",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "image/webp": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "image/svg+xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid API key.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key"
+      }
+    },
+    "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "meta": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}

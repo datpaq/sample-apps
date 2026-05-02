@@ -1,0 +1,43 @@
+# DATPAQ Unit Conversion API Sample
+
+This repository contains a production-ready single-page application demonstrating the DATPAQ Unit Conversion API.
+
+## Primary resources
+- Human docs: https://www.datpaq.com/docs/unit-conversion
+- API base URL: https://datpaq.com/api
+- Conversion route used by this sample: /v1/unit-conversion/convert
+- Supporting lookup routes:
+  - /v1/unit-conversion/categories
+  - /v1/unit-conversion/units/:category
+- OpenAI metadata (machine-readable): /openai.json
+
+## What this app demonstrates
+- Live category discovery before conversion.
+- Live unit lookup for the selected measurement category.
+- Single-value unit conversion with optional precision and reverse mode.
+- Required request validation for API key, category, units, and value.
+- Loading, empty, error, and success state rendering.
+- Copyable request URL and JSON response output.
+
+## Auth expectations
+- Requires an API key in the `x-api-key` request header.
+
+## Request contract
+- `GET /v1/unit-conversion/categories` returns available conversion categories.
+- `GET /v1/unit-conversion/units/:category` returns valid units for a category.
+- `POST /v1/unit-conversion/convert` accepts JSON with:
+  - `from` (string, required)
+  - `to` (string, required)
+  - `value` (number, required)
+  - `precision` (integer, optional, 0-15)
+  - `reverse` (boolean, optional)
+
+## Output contract
+- Successful single conversions include `success`, `data`, `meta`, and `correlationId`.
+- Common result fields include:
+  - `data.from`
+  - `data.to`
+  - `data.value`
+  - `data.result`
+  - `meta.processingTimeMs`
+  - `meta.timestamp`

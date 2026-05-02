@@ -1,0 +1,202 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "DATPAQ Validate IP API",
+    "version": "1.0.0",
+    "description": "Validate IPv4, IPv6, and CIDR input with detailed network classification flags."
+  },
+  "servers": [
+    {
+      "url": "https://datpaq.com/api"
+    }
+  ],
+  "paths": {
+    "/v1/validate-ip/validate": {
+      "post": {
+        "operationId": "validateIp",
+        "summary": "Validate a single IP or a batch of IP/CIDR values",
+        "description": "Accepts either a single string or an array in the `ip` field and returns classification flags for each value.",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidateIpRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Validation completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ValidateIpResult"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ValidateIpResult"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Endpoint not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key"
+      }
+    },
+    "schemas": {
+      "ValidateIpRequest": {
+        "type": "object",
+        "required": [
+          "ip"
+        ],
+        "properties": {
+          "ip": {
+            "oneOf": [
+              {
+                "type": "string",
+                "description": "Single IPv4, IPv6, or CIDR value."
+              },
+              {
+                "type": "array",
+                "description": "Batch of IPv4, IPv6, or CIDR values.",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "ValidateIpResult": {
+        "type": "object",
+        "properties": {
+          "ip": {
+            "type": "string"
+          },
+          "valid": {
+            "type": "boolean"
+          },
+          "type": {
+            "type": "string"
+          },
+          "cidr": {
+            "type": "boolean"
+          },
+          "private": {
+            "type": "boolean"
+          },
+          "reserved": {
+            "type": "boolean"
+          },
+          "loopback": {
+            "type": "boolean"
+          },
+          "multicast": {
+            "type": "boolean"
+          },
+          "link_local": {
+            "type": "boolean"
+          },
+          "bogon": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ip",
+          "valid"
+        ],
+        "additionalProperties": true
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "success": {
+            "type": "boolean"
+          },
+          "correlationId": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}

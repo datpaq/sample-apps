@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "name_for_human": "DATPAQ Current Time API Sample",
+  "name_for_model": "datpaq_current_time_sample",
+  "description_for_human": "Interactive sample app for querying DATPAQ current time data by timezone/location.",
+  "description_for_model": "Use this app to demonstrate GET /v1/current-time with required target query and x-api-key header. The app renders loading, empty, error, and success states and exposes copyable request URL and full JSON response.",
+  "provider": {
+    "name": "DATPAQ",
+    "url": "https://www.datpaq.com"
+  },
+  "documentation_url": "https://datpaq.com/api/v1/current-time",
+  "api": {
+    "base_url": "https://datpaq.com/api",
+    "route": "/v1/current-time",
+    "method": "GET",
+    "authentication": {
+      "type": "api_key",
+      "header": "x-api-key"
+    },
+    "query_parameters": [
+      {
+        "name": "target",
+        "required": true,
+        "type": "string",
+        "examples": [
+          "America/New_York",
+          "Europe/London",
+          "America, Arizona"
+        ]
+      }
+    ]
+  },
+  "response_fields": [
+    "requested_location",
+    "longitude",
+    "latitude",
+    "datetime",
+    "timezone_name",
+    "timezone_abbreviation",
+    "gmt_offset",
+    "is_dst"
+  ]
+}

@@ -1,0 +1,270 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "DATPAQ Working Days API",
+    "version": "1.0.0",
+    "description": "Business-day calculations for date ranges and forward or backward date offsets."
+  },
+  "servers": [
+    {
+      "url": "https://datpaq.com/api"
+    }
+  ],
+  "paths": {
+    "/v1/working-days/calculate": {
+      "post": {
+        "operationId": "calculateWorkingDays",
+        "summary": "Calculate working days or business-day offsets",
+        "description": "Counts business days in a range or moves a date forward or backward while excluding weekends and region-aware holidays.",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkingDaysRequest"
+              },
+              "examples": {
+                "range": {
+                  "summary": "Range calculation",
+                  "value": {
+                    "start_date": "2025-07-01",
+                    "end_date": "2025-07-15",
+                    "region": "US",
+                    "custom_holidays": [
+                      "2025-07-03"
+                    ]
+                  }
+                },
+                "offset": {
+                  "summary": "Forward offset calculation",
+                  "value": {
+                    "start_date": "2025-08-01",
+                    "days_offset": 10,
+                    "direction": "forward",
+                    "region": "DE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkingDaysSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server-side calculation failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key"
+      }
+    },
+    "schemas": {
+      "WorkingDaysRequest": {
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "description": "Base date for calculations."
+          },
+          "end_date": {
+            "type": "string",
+            "description": "End date for range calculations."
+          },
+          "days_offset": {
+            "type": "integer",
+            "description": "Number of working days to add or subtract."
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "forward",
+              "backward"
+            ]
+          },
+          "date_format": {
+            "type": "string"
+          },
+          "custom_holidays": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "region": {
+            "type": "string",
+            "enum": [
+              "US",
+              "DE",
+              "IN"
+            ]
+          },
+          "include_start": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "start_date"
+        ],
+        "additionalProperties": false
+      },
+      "WorkingDaysResult": {
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "type": "string"
+          },
+          "end_date": {
+            "type": "string"
+          },
+          "result_date": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "working_days": {
+            "type": "integer"
+          },
+          "holidays_used": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "total_days": {
+            "type": "integer"
+          },
+          "weekends_excluded": {
+            "type": "integer"
+          },
+          "holidays_excluded": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": true
+      },
+      "WorkingDaysSuccess": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/WorkingDaysResult"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/WorkingDaysResult"
+                }
+              }
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "batchSize": {
+                "type": "integer"
+              },
+              "successCount": {
+                "type": "integer"
+              },
+              "errorCount": {
+                "type": "integer"
+              },
+              "processingTimeMs": {
+                "type": "integer"
+              },
+              "timestamp": {
+                "type": "string"
+              },
+              "epochTime": {
+                "type": "integer"
+              }
+            },
+            "additionalProperties": true
+          },
+          "correlationId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "success"
+        ],
+        "additionalProperties": true
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "correlationId": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}

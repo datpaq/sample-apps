@@ -1,0 +1,33 @@
+# DATPAQ Working Days API Sample
+
+This repository contains a production-ready React single-page application demonstrating the DATPAQ Working Days API.
+
+## Primary resources
+- Human docs: https://www.datpaq.com/docs/working-days
+- API base URL: https://datpaq.com/api
+- API route used by this sample: POST /v1/working-days/calculate
+- Machine-readable OpenAPI schema: /openapi.json
+- Machine-readable app metadata: /openai.json
+- Expanded LLM guidance: /llms-full.txt
+
+## What this app demonstrates
+- Working-day counts between two dates.
+- Forward and backward business-day offsets from a base date.
+- Region-aware holiday exclusions for US, DE, and IN.
+- Optional custom holidays, custom date formats, and include-start behavior.
+- Loading, error, empty, and success states.
+- Copyable request URL, request JSON, and response JSON.
+
+## Auth expectations
+- Requires an API key in the `x-api-key` request header.
+
+## Request contract
+- Method: `POST`
+- Path: `/v1/working-days/calculate`
+- Required: `start_date`
+- Range mode: provide `end_date`
+- Offset mode: provide `days_offset` and optionally `direction`
+
+## Output contract
+- Successful responses include `success`, `data`, `meta`, and `correlationId`.
+- Typical single-result fields include `data.working_days`, `data.start_date`, `data.end_date`, `data.region`, and `data.holidays_used`.

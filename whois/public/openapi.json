@@ -1,0 +1,204 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "DATPAQ WHOIS Domain Lookup API",
+    "version": "1.0.0",
+    "description": "WHOIS domain lookup for single or batch queries with registrar metadata, TLD enrichment, and raw WHOIS text."
+  },
+  "servers": [
+    {
+      "url": "https://datpaq.com/api"
+    }
+  ],
+  "paths": {
+    "/v1/whois/lookup": {
+      "get": {
+        "operationId": "lookupWhois",
+        "summary": "Lookup WHOIS data for one or more domains",
+        "description": "Returns WHOIS metadata for a single domain or a comma-separated batch of domains.",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "domain",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "One domain or a comma-separated batch of domains, up to 50 total."
+          },
+          {
+            "name": "api_key",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional compatibility query parameter mirrored by this sample for curl-friendly requests."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "WHOIS lookup response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/WhoisLookupResult"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/WhoisLookupResult"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WhoisErrorEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WhoisErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Route not found or unavailable lookup endpoint",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WhoisErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key"
+      }
+    },
+    "schemas": {
+      "WhoisLookupResult": {
+        "type": "object",
+        "properties": {
+          "fromCache": {
+            "type": "boolean"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "tld": {
+            "type": "string"
+          },
+          "tldType": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "countryName": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "region": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "category": {
+            "type": "string"
+          },
+          "isGovernment": {
+            "type": "boolean"
+          },
+          "registrar": {
+            "type": "string"
+          },
+          "creationDate": {
+            "type": "string"
+          },
+          "expirationDate": {
+            "type": "string"
+          },
+          "nameServers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "raw": {
+            "type": "string"
+          },
+          "registrantRedacted": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          },
+          "details": {
+            "type": "string"
+          },
+          "correlationId": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "WhoisErrorEnvelope": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "correlationId": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}

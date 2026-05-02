@@ -1,0 +1,36 @@
+# DATPAQ IP Intelligence API Sample
+
+This repository contains a production-ready single-page application demonstrating the DATPAQ IP Intelligence API.
+
+## Primary resources
+- Human docs: https://datpaq.com/api/v1/ip-intelligence
+- API base URL: https://datpaq.com/api
+- API route used by this sample: /v1/ip-intelligence
+- OpenAI metadata (machine-readable): /openai.json
+
+## What this app demonstrates
+- Single-IP intelligence lookup via query parameter.
+- Required request validation for API key and IP address.
+- Loading, error, empty, and success state rendering.
+- Threat/risk signal rendering (malicious flag, threat score, trust score, VPN/Tor/proxy indicators).
+- Copyable request URL and JSON response output.
+
+## Auth expectations
+- Requires an API key in the `x-api-key` request header.
+
+## Request contract (GET /v1/ip-intelligence)
+- Required query parameter: `ip`
+
+## Output contract
+- Typical successful response fields include:
+  - `data.ip`
+  - `data.network`
+  - `data.country`
+  - `data.region`
+  - `data.city`
+  - `data.asn`
+  - `data.org`
+  - `data.threat_intelligence.is_malicious`
+  - `data.threat_intelligence.threat_score`
+  - `data.threat_intelligence.is_vpn`
+  - `data.threat_intelligence.is_tor`

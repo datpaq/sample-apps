@@ -1,0 +1,32 @@
+# DATPAQ Current Time API Sample
+
+This repository contains a production-ready single-page application demonstrating the DATPAQ Current Time API.
+
+## Primary resources
+- Human docs: https://datpaq.com/api/v1/current-time
+- API base URL: https://datpaq.com/api
+- API route used by this sample: /v1/current-time
+- OpenAI metadata (machine-readable): /openai.json
+
+## What this app demonstrates
+- Current time lookup by IANA timezone (`America/New_York`).
+- Current time lookup by comma-separated target (`America, Arizona`).
+- Required request validation for API key and target.
+- Loading, error, empty, and success state rendering.
+- Copyable request URL and JSON response output.
+
+## Auth expectations
+- Requires an API key in the `x-api-key` request header.
+
+## Query contract (GET /v1/current-time)
+- Required: `target`
+
+## Output contract
+- Typical successful response includes:
+  - `requested_location`
+  - `datetime`
+  - `timezone_name`
+  - `timezone_abbreviation`
+  - `gmt_offset`
+  - `is_dst`
+  - `latitude` and `longitude`

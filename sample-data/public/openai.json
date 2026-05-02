@@ -1,0 +1,58 @@
+{
+  "version": "1.0",
+  "name": "DATPAQ Sample Data API Sample",
+  "description": "Machine-readable guide for the sample SPA that demonstrates DATPAQ Sample Data API requests.",
+  "documentation_url": "https://www.datpaq.com/docs/sample-data",
+  "api": {
+    "base_url": "https://datpaq.com/api",
+    "endpoint": {
+      "path": "/v1/sample-data",
+      "method": "GET",
+      "content_type": "application/json"
+    },
+    "authentication": {
+      "type": "api_key",
+      "header": "x-api-key",
+      "required": true
+    },
+    "query_parameters": [
+      {
+        "name": "type",
+        "type": "string",
+        "required": true,
+        "description": "Dataset schema type to generate."
+      },
+      {
+        "name": "count",
+        "type": "integer",
+        "required": false,
+        "minimum": 1,
+        "maximum": 10000,
+        "default": 10
+      },
+      {
+        "name": "fields",
+        "type": "string",
+        "required": false,
+        "description": "Comma-separated field names to include."
+      },
+      {
+        "name": "format",
+        "type": "string",
+        "required": false,
+        "enum": ["json", "csv"],
+        "default": "json"
+      }
+    ],
+    "response_notes": {
+      "json": "Usually includes success, data, metadata, and correlationId.",
+      "csv": "May return raw CSV text or csvData payload depending on server behavior."
+    }
+  },
+  "sample_app_features": [
+    "Loading, error, empty, and success states",
+    "Copyable request URL",
+    "Copyable response JSON",
+    "Theme toggle with consistent DATPAQ shell"
+  ]
+}

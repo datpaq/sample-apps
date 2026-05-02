@@ -1,0 +1,38 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "DATPAQ Validate IP Sample",
+  "name_for_model": "datpaq_validate_ip_sample",
+  "description_for_human": "Reference sample app for validating single IPs, IPv6 values, CIDR blocks, and IP batches with DATPAQ.",
+  "description_for_model": "Use this machine-readable descriptor to understand the DATPAQ Validate IP sample app. The app sends POST requests to https://datpaq.com/api/v1/validate-ip/validate with x-api-key authentication and a JSON body that contains either a single ip string or an array of ip strings. Successful responses return either one validation object or an array of validation objects with classification flags such as private, reserved, loopback, multicast, link_local, and bogon.",
+  "documentation_url": "https://www.datpaq.com/docs/validate-ip",
+  "openapi_url": "/openapi.json",
+  "auth": {
+    "type": "api_key",
+    "header": "x-api-key"
+  },
+  "api": {
+    "base_url": "https://datpaq.com/api",
+    "method": "POST",
+    "path": "/v1/validate-ip/validate",
+    "content_type": "application/json",
+    "request_examples": [
+      {
+        "ip": "8.8.8.8"
+      },
+      {
+        "ip": [
+          "8.8.8.8",
+          "127.0.0.1",
+          "10.0.0.0/8"
+        ]
+      }
+    ]
+  },
+  "ui_capabilities": [
+    "single_ip_validation",
+    "batch_ip_validation",
+    "copy_request_url",
+    "copy_response_json",
+    "theme_toggle"
+  ]
+}

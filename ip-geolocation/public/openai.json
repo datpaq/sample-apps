@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "name_for_human": "DATPAQ IP Geolocation API Sample",
+  "name_for_model": "datpaq_ip_geolocation_sample",
+  "description_for_human": "Interactive sample app for querying DATPAQ IP geolocation data.",
+  "description_for_model": "Use this app to demonstrate POST /v1/ip-geolocation with required ip in the JSON body and x-api-key header. The app renders loading, empty, error, and success states and exposes copyable request URL and full JSON response.",
+  "provider": {
+    "name": "DATPAQ",
+    "url": "https://www.datpaq.com"
+  },
+  "documentation_url": "https://datpaq.com/api/v1/ip-geolocation",
+  "api": {
+    "base_url": "https://datpaq.com/api",
+    "route": "/v1/ip-geolocation",
+    "method": "POST",
+    "authentication": {
+      "type": "api_key",
+      "header": "x-api-key"
+    },
+    "body_parameters": [
+      {
+        "name": "ip",
+        "required": true,
+        "type": "string",
+        "examples": [
+          "108.44.168.128",
+          "8.8.8.8",
+          "2001:4860:4860::8888"
+        ]
+      }
+    ]
+  },
+  "response_fields": [
+    "ip",
+    "location.country",
+    "location.region",
+    "location.city",
+    "location.latitude",
+    "location.longitude",
+    "network.network",
+    "network.asn",
+    "network.org",
+    "found"
+  ]
+}

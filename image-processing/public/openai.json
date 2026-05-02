@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0",
+  "name_for_human": "DATPAQ Image Processing API Sample",
+  "name_for_model": "datpaq_image_processing_sample",
+  "description_for_human": "Interactive sample app for DATPAQ image-processing requests.",
+  "description_for_model": "Use this app to demonstrate GET /v1/image-processing with x-api-key authentication. It supports URL/inline image input, conversion/resize/compress/crop parameter profiles, and renders loading, empty, error, and success states with copyable request URL and JSON output.",
+  "provider": {
+    "name": "DATPAQ",
+    "url": "https://www.datpaq.com"
+  },
+  "documentation_url": "https://www.datpaq.com/docs/image-processing",
+  "api": {
+    "base_url": "https://datpaq.com/api",
+    "route": "/v1/image-processing",
+    "method": "GET",
+    "authentication": {
+      "type": "api_key",
+      "header": "x-api-key"
+    },
+    "query_parameters": [
+      {
+        "name": "image",
+        "required": false,
+        "type": "string",
+        "description": "Inline image value. Provide if image_url is not supplied."
+      },
+      {
+        "name": "image_url",
+        "required": false,
+        "type": "string",
+        "description": "HTTP/HTTPS URL of source image. Provide if image is not supplied."
+      },
+      {
+        "name": "format",
+        "required": false,
+        "type": "string",
+        "enum": ["jpeg", "jpg", "png", "webp", "avif"]
+      },
+      {
+        "name": "x",
+        "required": false,
+        "type": "integer",
+        "minimum": 0
+      },
+      {
+        "name": "y",
+        "required": false,
+        "type": "integer",
+        "minimum": 0
+      },
+      {
+        "name": "width",
+        "required": false,
+        "type": "integer",
+        "minimum": 1
+      },
+      {
+        "name": "height",
+        "required": false,
+        "type": "integer",
+        "minimum": 1
+      },
+      {
+        "name": "quality",
+        "required": false,
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 100
+      }
+    ]
+  },
+  "sample_app_features": [
+    "Theme-aware DATPAQ shell layout",
+    "Required API key input and validation",
+    "Operation profile validation (convert/resize/compress/crop)",
+    "Copyable request URL",
+    "Copyable response JSON",
+    "Optional preview rendering when image URL/base64 is present"
+  ]
+}

@@ -1,0 +1,60 @@
+{
+    "schema_version": "1.0",
+    "name_for_human": "DATPAQ Unit Conversion API Sample",
+    "name_for_model": "datpaq_unit_conversion_sample",
+    "description_for_human": "Interactive sample app for DATPAQ unit conversion requests.",
+    "description_for_model": "Use this app to demonstrate the DATPAQ Unit Conversion API. The app uses x-api-key authentication, fetches available categories with GET /v1/unit-conversion/categories, fetches units for the active category with GET /v1/unit-conversion/units/{category}, and sends single-value conversion payloads to POST /v1/unit-conversion/convert. It renders loading, empty, error, and success states and exposes a copyable request URL plus formatted JSON response output.",
+    "provider": {
+        "name": "DATPAQ",
+        "url": "https://www.datpaq.com"
+    },
+    "documentation_url": "https://www.datpaq.com/docs/unit-conversion",
+    "auth": {
+        "type": "api_key",
+        "header": "x-api-key"
+    },
+    "api": {
+        "base_url": "https://datpaq.com/api",
+        "routes": [
+            {
+                "method": "GET",
+                "path": "/v1/unit-conversion/categories",
+                "purpose": "Load available conversion categories."
+            },
+            {
+                "method": "GET",
+                "path": "/v1/unit-conversion/units/{category}",
+                "purpose": "Load valid units for the selected category."
+            },
+            {
+                "method": "POST",
+                "path": "/v1/unit-conversion/convert",
+                "content_type": "application/json",
+                "request_example": {
+                    "from": "kg",
+                    "to": "lb",
+                    "value": 5.5,
+                    "precision": 2
+                }
+            }
+        ]
+    },
+    "response_fields": [
+        "success",
+        "data.from",
+        "data.to",
+        "data.value",
+        "data.result",
+        "meta.processingTimeMs",
+        "meta.timestamp",
+        "correlationId"
+    ],
+    "ui_capabilities": [
+        "theme_toggle",
+        "api_key_input",
+        "live_category_loading",
+        "live_unit_loading",
+        "copy_request_url",
+        "copy_response_json"
+    ]
+}

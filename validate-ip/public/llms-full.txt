@@ -1,0 +1,51 @@
+# DATPAQ Validate IP API Sample
+
+## Purpose
+Use this app as a reference implementation for validating IP addresses and CIDR ranges with the DATPAQ Validate IP API.
+
+## Endpoint
+- `POST https://datpaq.com/api/v1/validate-ip/validate`
+
+## Authentication
+- Required header: `x-api-key: <DATPAQ_API_KEY>`
+
+## Accepted payloads
+- Single lookup:
+```json
+{
+  "ip": "8.8.8.8"
+}
+```
+
+- Batch lookup:
+```json
+{
+  "ip": [
+    "8.8.8.8",
+    "127.0.0.1",
+    "192.168.1.0/24",
+    "2001:db8::1",
+    "invalid.ip.address"
+  ]
+}
+```
+
+## Useful output fields
+- `ip`: original submitted value
+- `valid`: whether the IP or CIDR is valid
+- `type`: `IPv4`, `IPv6`, or `Invalid`
+- `cidr`: whether the input was CIDR notation
+- `private`: private range flag
+- `reserved`: reserved range flag
+- `loopback`: loopback range flag
+- `multicast`: multicast range flag
+- `link_local`: link-local range flag
+- `bogon`: unroutable or unusable range flag
+- `message`: human-readable status
+- `error`: invalid-input message when validation fails
+
+## App behavior
+- Requires an API key before sending requests.
+- Supports a single-entry tab and a batch-entry tab.
+- Shows request URL, request JSON body, response state, and raw response JSON.
+- Preserves DATPAQ sample shell, header, footer, and theme toggle behavior.

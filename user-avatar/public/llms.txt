@@ -1,0 +1,23 @@
+# DATPAQ User Avatar API Sample
+
+This repository contains a production-ready SPA demonstrating the DATPAQ User Avatar API.
+
+## Primary resources
+- Human docs: https://www.datpaq.com/docs/user-avatar
+- API base URL: https://datpaq.com/api
+- API route used by this sample: /v1/user-avatar
+- Machine-readable API guide: /openai.json
+- Expanded LLM guidance: /llms-full.txt
+
+## What this app demonstrates
+- Avatar image generation from `name` and optional styling parameters.
+- Required API key input (`x-api-key`) with form validation.
+- Loading, empty, error, and success UX states.
+- Copyable request URL and copyable JSON response metadata block.
+
+## Authentication
+- Header required: `x-api-key: <your_api_key>`
+
+## Response behavior
+- API returns image content (PNG, WebP, or SVG) depending on query and defaults.
+- Sample app converts the image response into a browser preview and exposes metadata as JSON.

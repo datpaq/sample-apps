@@ -1,0 +1,38 @@
+# DATPAQ Sample Data API Sample (Detailed)
+
+## Purpose
+This app demonstrates how to generate realistic test data from the DATPAQ Sample Data API with a clean frontend request/response workflow.
+
+## API endpoint
+- Base URL: `https://datpaq.com/api`
+- Route: `GET /v1/sample-data`
+- Human docs: `https://www.datpaq.com/docs/sample-data`
+
+## Authentication
+The backend requires an API key on each request:
+- Header: `x-api-key: <your_api_key>`
+
+## Request parameters
+- `type` (required): dataset schema name (example: `company`, `user`, `transaction`).
+- `count` (optional): number of rows to generate, range `1-10000`.
+- `fields` (optional): comma-separated subset of fields to include.
+- `format` (optional): `json` (default) or `csv`.
+
+## Response behavior
+- JSON responses generally include:
+  - `success`
+  - `data` (array)
+  - `metadata` (type/count/format/generatedAt)
+  - `correlationId`
+- CSV responses may return:
+  - raw CSV text body and/or
+  - `csvData` when wrapped in JSON
+
+## UX behavior in this sample
+- Validates required values before requesting.
+- Uses GET query parameters.
+- Includes loading, error, empty, and success states.
+- Provides copyable request URL and full response payload.
+
+## Machine-readable docs
+- OpenAI-oriented JSON: `/openai.json`

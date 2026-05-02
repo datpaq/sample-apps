@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "name_for_human": "DATPAQ WHOIS Domain Lookup Sample",
+  "name_for_model": "datpaq_whois_domain_lookup_sample",
+  "description_for_human": "Interactive sample app for DATPAQ WHOIS lookups.",
+  "description_for_model": "Use this sample app to demonstrate DATPAQ WHOIS requests. It sends GET requests to https://datpaq.com/api/v1/whois/lookup with a required domain query parameter and a runtime user-supplied API key. The shared client sends x-api-key, and the app mirrors the same runtime value into api_key for curl-style WHOIS route compatibility. The UI validates required input, exposes copyable request URLs and JSON responses, and renders empty, loading, error, partial, and success states.",
+  "provider": {
+    "name": "DATPAQ",
+    "url": "https://www.datpaq.com"
+  },
+  "documentation_url": "https://www.datpaq.com/docs/whois",
+  "openapi_url": "/openapi.json",
+  "auth": {
+    "type": "api_key",
+    "header": "x-api-key",
+    "query": "api_key"
+  },
+  "api": {
+    "base_url": "https://datpaq.com/api",
+    "route": "/v1/whois/lookup",
+    "method": "GET",
+    "query_parameters": [
+      {
+        "name": "domain",
+        "required": true,
+        "type": "string",
+        "description": "One domain or a comma-separated batch of domains.",
+        "examples": [
+          "openai.com",
+          "openai.com,github.com,whitehouse.gov"
+        ]
+      },
+      {
+        "name": "api_key",
+        "required": false,
+        "type": "string",
+        "description": "Compatibility query parameter derived from the user-entered API key."
+      }
+    ]
+  },
+  "response_fields": [
+    "domain",
+    "tld",
+    "tldType",
+    "countryCode",
+    "countryName",
+    "region",
+    "category",
+    "registrar",
+    "creationDate",
+    "expirationDate",
+    "nameServers",
+    "raw",
+    "registrantRedacted",
+    "error",
+    "details",
+    "correlationId"
+  ],
+  "sample_app_features": [
+    "Theme-aware DATPAQ shell layout",
+    "Required API key input",
+    "Single and batch WHOIS validation",
+    "Copyable request URL",
+    "Copyable response JSON",
+    "Success, partial, and error diagnostics"
+  ]
+}

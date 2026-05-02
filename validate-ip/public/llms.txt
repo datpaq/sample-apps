@@ -1,0 +1,28 @@
+# DATPAQ Validate IP API Sample
+
+This repository contains a production-ready single-page application demonstrating the DATPAQ Validate IP API.
+
+## Primary resources
+- Human docs: https://www.datpaq.com/docs/validate-ip
+- API base URL: https://datpaq.com/api
+- API route used by this sample: /v1/validate-ip/validate
+- OpenAPI schema: /openapi.json
+- OpenAI-oriented machine doc: /openai.json
+- Expanded LLM guidance: /llms-full.txt
+
+## What this app demonstrates
+- Single IP validation for IPv4, IPv6, and CIDR input.
+- Batch validation using JSON arrays of addresses or CIDR strings.
+- Request validation for required values, including the `x-api-key` header.
+- Loading, error, empty, and success states with copyable request and response artifacts.
+
+## Request contract
+- Method: `POST`
+- Path: `/v1/validate-ip/validate`
+- Header: `x-api-key`
+- Body: `{ "ip": "8.8.8.8" }` or `{ "ip": ["8.8.8.8", "10.0.0.0/8"] }`
+
+## Response contract
+- Success may return a single validation object or an array of validation objects.
+- Common fields include `ip`, `valid`, `type`, `cidr`, `private`, `reserved`, `loopback`, `multicast`, `link_local`, `bogon`, and `message`.
+- Invalid entries may include `error` instead of classification flags.

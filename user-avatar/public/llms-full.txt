@@ -1,0 +1,44 @@
+# DATPAQ User Avatar API Sample (Detailed)
+
+## Purpose
+This sample app demonstrates robust frontend integration with the DATPAQ User Avatar endpoint, including request validation, image rendering, and machine-readable diagnostics output.
+
+## API endpoint
+- Base URL: `https://datpaq.com/api`
+- Route: `GET /v1/user-avatar`
+- Documentation: `https://www.datpaq.com/docs/user-avatar`
+
+## Authentication model
+Each request requires an API key header:
+- `x-api-key: <your_api_key>`
+
+## Request parameters used by this sample
+- `name` (required in this UI): user name used for initials.
+- `icon` (optional): icon hint/query value.
+- `size` (optional): avatar size in pixels.
+- `bgColor`, `textColor`, `borderColor` (optional): color controls.
+- `borderWidth` (optional): border width in pixels.
+- `font` (optional): text font family.
+- `shape` (optional): `circle` or `square`.
+- `pattern` (optional): `none`, `dots`, `stripes`, `waves`, `noise`.
+- `format` (optional): `png`, `webp`, `svg`.
+- `imageUrl` (optional): external image source.
+- `uploadedIcon` (optional): uploaded icon path.
+- `Content-Type` (optional query key): explicit content-type override.
+
+## Response handling strategy
+The endpoint returns image content. This sample:
+1. Requests and parses the response as `Blob`.
+2. Creates an object URL for on-screen image preview.
+3. Produces a JSON metadata block containing request URL, status, headers, content type, and byte size.
+4. Includes raw SVG markup in metadata when the response format is SVG.
+
+## UX states
+- Empty state before any request.
+- Loading state during fetch.
+- Error state with retry action.
+- Success state with animated avatar preview.
+
+## Machine-readable contract
+A machine-readable OpenAPI-style document is provided at:
+- `/openai.json`

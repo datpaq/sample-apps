@@ -1,0 +1,26 @@
+# DATPAQ Image Processing API Sample
+
+This repository contains a production-ready SPA that demonstrates how to call the DATPAQ Image Processing API.
+
+## Primary resources
+- Human docs: https://www.datpaq.com/docs/image-processing
+- API base URL: https://datpaq.com/api
+- API route used by this sample: /v1/image-processing
+- OpenAI machine-readable docs: /openai.json
+- Expanded LLM guidance: /llms-full.txt
+
+## What this app demonstrates
+- Required API key input with `x-api-key` header auth.
+- Query-driven image processing inputs (`image`, `image_url`, `format`, `x`, `y`, `width`, `height`, `quality`).
+- Operation profiles for convert, resize, compress, and crop validation.
+- Loading, error, empty, and success response states.
+- Copyable request URL and copyable JSON response block.
+
+## Query contract (GET /v1/image-processing)
+- Required auth: `x-api-key` header
+- Required image source: one of `image` or `image_url`
+- Optional processing parameters: `format`, `x`, `y`, `width`, `height`, `quality`
+
+## Output contract
+- Responses are rendered as JSON when available.
+- The app attempts to detect image preview URLs or base64 output when present.

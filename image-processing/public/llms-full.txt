@@ -1,0 +1,46 @@
+# DATPAQ Image Processing API Sample - Extended LLM Guide
+
+## Purpose
+This single-page React app demonstrates robust request construction and response rendering for DATPAQ Image Processing API workflows.
+
+## API reference
+- Base URL: `https://datpaq.com/api`
+- Route: `GET /v1/image-processing`
+- Docs: `https://www.datpaq.com/docs/image-processing`
+- Auth: `x-api-key` request header
+
+## App request behavior
+The app gathers user inputs and issues a GET request with query parameters using shared request utilities.
+
+Potential query parameters:
+- `image`: inline image value (optional if `image_url` provided)
+- `image_url`: source image URL (optional if `image` provided)
+- `format`: `jpeg|jpg|png|webp|avif`
+- `x`: non-negative integer
+- `y`: non-negative integer
+- `width`: positive integer
+- `height`: positive integer
+- `quality`: integer 1-100
+
+## Validation model
+- API key is required.
+- At least one image source is required (`image` or `image_url`).
+- `convert` profile requires `format`.
+- `compress` profile requires `quality`.
+- `crop` profile requires `x`, `y`, `width`, and `height`.
+- `resize` profile requires either `x/y` or `width/height`.
+
+## UI state model
+- Loading: request skeleton/status shown.
+- Error: formatted API error with retry action.
+- Empty: pre-request instructional state.
+- Success: status summary, optional image preview, and formatted JSON payload.
+
+## Machine-readable assets
+- Lightweight summary: `/llms.txt`
+- OpenAI-oriented JSON: `/openai.json`
+
+## Notes for AI agents
+- This sample intentionally keeps the DATPAQ shell layout, header/footer, and theme behavior consistent with the template.
+- All API calls should continue to route through `src/hooks/useDatpaqRequest.js` and `src/lib/datpaq-client.js`.
+- Request URL and JSON payload blocks are copyable and should remain available for diagnostics.

@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "name": "DATPAQ Working Days API Sample",
+  "description": "Machine-readable metadata for the DATPAQ Working Days API sample SPA.",
+  "documentation_url": "https://www.datpaq.com/docs/working-days",
+  "llms_url": "/llms.txt",
+  "openapi_url": "/openapi.json",
+  "runtime": {
+    "framework": "React 19",
+    "styling": "Tailwind CSS 4",
+    "type": "single-page-application"
+  },
+  "api": {
+    "base_url": "https://datpaq.com/api",
+    "route": "/v1/working-days/calculate",
+    "method": "POST",
+    "authentication": {
+      "type": "apiKey",
+      "header": "x-api-key"
+    }
+  },
+  "capabilities": [
+    "working day range calculations",
+    "forward and backward business-day offsets",
+    "regional holiday exclusions",
+    "custom holiday exclusions",
+    "machine-readable request and response examples"
+  ]
+}

@@ -1,0 +1,58 @@
+# DATPAQ WHOIS Domain Lookup Sample (Detailed)
+
+## Purpose
+This app demonstrates how to call the DATPAQ WHOIS API from a frontend SPA while showing robust request, response, and diagnostic states.
+
+## API endpoint
+- Base URL: `https://datpaq.com/api`
+- Route: `GET /v1/whois/lookup`
+- Full reference: `https://datpaq.com/api/v1/whois/lookup`
+
+## Authentication
+- The user supplies the API key in the SPA.
+- The sample uses the shared `x-api-key` header via `datpaq-client`.
+- The WHOIS request URL also includes `api_key=<user_supplied_key>` so copied URLs are runnable in curl-style workflows.
+
+## Request parameters
+- `domain` (required): one hostname or a comma-separated list of hostnames.
+- Maximum batch size: 50 domains.
+- Example single request: `domain=openai.com`
+- Example batch request: `domain=openai.com,github.com,whitehouse.gov`
+
+## Expected successful response shape
+- Single lookups return one object.
+- Batch lookups can return an array of objects.
+- Common success fields:
+  - `domain`
+  - `tld`
+  - `tldType`
+  - `countryCode`
+  - `countryName`
+  - `region`
+  - `category`
+  - `registrar`
+  - `creationDate`
+  - `expirationDate`
+  - `nameServers`
+  - `raw`
+  - `registrantRedacted`
+
+## Expected error response shape
+- Failed lookup objects can include:
+  - `domain`
+  - `error`
+  - `details`
+  - `correlationId`
+- Non-2xx transport errors may also surface a JSON error body from the API gateway.
+
+## UX behavior in this sample
+- Validates required fields before requesting.
+- Uses GET query parameters for all lookups.
+- Supports both single and batch WHOIS lookups.
+- Shows empty, loading, error, partial, and success blocks.
+- Displays copyable request URL and response JSON.
+
+## Machine-readable artifacts
+- Lightweight summary: `/llms.txt`
+- OpenAI-oriented JSON: `/openai.json`
+- OpenAPI document: `/openapi.json`

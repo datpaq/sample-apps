@@ -1,0 +1,69 @@
+# DATPAQ Working Days API Sample (Detailed)
+
+## Purpose
+This app demonstrates how to call the DATPAQ Working Days API from a frontend SPA with robust request validation and readable response states.
+
+## Verified API endpoint
+- Base URL: `https://datpaq.com/api`
+- Route used by the sample: `POST /v1/working-days/calculate`
+- Documentation: `https://www.datpaq.com/docs/working-days`
+
+## Authentication
+The backend requires an API key in the request header:
+- Header: `x-api-key: <your_api_key>`
+
+## Supported request patterns in this sample
+- Range calculation:
+  - `start_date`
+  - `end_date`
+  - optional `region`
+  - optional `include_start`
+  - optional `date_format`
+  - optional `custom_holidays`
+- Offset calculation:
+  - `start_date`
+  - `days_offset`
+  - optional `direction` (`forward` or `backward`)
+  - optional `region`
+  - optional `date_format`
+  - optional `custom_holidays`
+
+## Supported regions
+- `US`
+- `DE`
+- `IN`
+
+## Expected successful response shape
+- `success`: boolean
+- `data`:
+  - `start_date`
+  - `end_date` or `result_date`
+  - `working_days`
+  - `region`
+  - `holidays_used`
+  - additional calculation metadata depending on service behavior
+- `meta`:
+  - `batchSize`
+  - `successCount`
+  - `errorCount`
+  - `processingTimeMs`
+  - `timestamp`
+  - `epochTime`
+- `correlationId`
+
+## Expected error response shape
+- `success`: false (or omitted depending on gateway behavior)
+- `error` or `message`
+- `correlationId` or metadata fields
+
+## UX behavior in this sample
+- Validates required fields before submitting.
+- Uses a required API-key input instead of hardcoding credentials.
+- Keeps request construction within `src/lib/datpaq-client.js` and `src/hooks/useDatpaqRequest.js`.
+- Shows loading, empty, error, and success states.
+- Exposes copyable request URL, request body, and raw response JSON.
+- Adds crawlable metadata, JSON-LD structured data, `llms.txt`, `llms-full.txt`, and `openai.json`.
+
+## Machine-readable schema
+- OpenAPI document: `/openapi.json`
+- App metadata: `/openai.json`
